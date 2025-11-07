@@ -1,6 +1,6 @@
 {
-    "passing_tests": 52,
+    "passing_tests": 66,
     "total_tests": 90,
-    "pylint_score": 9.55,
-    "total_score_percent": 61.55
+    "pylint_score": 10.0,
+    "total_score_percent": 76.0
 }
