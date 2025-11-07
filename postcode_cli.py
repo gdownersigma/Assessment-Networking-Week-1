@@ -18,7 +18,7 @@ def do_completion(postcode: str) -> str:
     completions = get_postcode_completions(formatted_postcode)
     if completions is None:
         return f"No matches for {formatted_postcode}."
-    return '\n'.join([pc for pc in completions[:5]])
+    return '\n'.join((completions[:5]))
 
 
 parser = ArgumentParser()
