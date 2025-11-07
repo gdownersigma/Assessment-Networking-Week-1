@@ -6,9 +6,9 @@ collected 90 items
 
 test_postcode_cache.py FFFFFFFFFFFFF                                     [ 14%]
 test_postcode_cli.py FFF.FFFFFFFFFFFFFFFFFFFFF.F.....                    [ 50%]
-test_postcode_functions.py .......................FFFFFFFFFFFFFFFFFFFFFF [100%]
+test_postcode_functions.py ...............................FFFFFFFFFFFFFF [100%]
 
-======================== 60 failed, 30 passed in 0.83s =========================
+======================== 52 failed, 38 passed in 0.86s =========================
 ************* Module postcode_cli
 postcode_cli.py:7:0: C0304: Final newline missing (missing-final-newline)
 postcode_cli.py:3:0: W0611: Unused ArgumentParser imported from argparse (unused-import)
@@ -20,15 +20,15 @@ postcode_functions.py:22:0: R1710: Either all return statements in a function sh
 postcode_functions.py:46:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
 postcode_functions.py:46:11: C0121: Comparison 'data['result'] == None' should be 'data['result'] is None' (singleton-comparison)
 postcode_functions.py:34:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
-postcode_functions.py:52:0: C0116: Missing function or method docstring (missing-function-docstring)
-postcode_functions.py:52:29: W0613: Unused argument 'postcode_start' (unused-argument)
-postcode_functions.py:56:0: C0116: Missing function or method docstring (missing-function-docstring)
-postcode_functions.py:56:26: W0613: Unused argument 'postcodes' (unused-argument)
+postcode_functions.py:56:15: W3101: Missing timeout argument for method 'req.get' can cause your program to hang indefinitely (missing-timeout)
+postcode_functions.py:52:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+postcode_functions.py:66:0: C0116: Missing function or method docstring (missing-function-docstring)
+postcode_functions.py:66:26: W0613: Unused argument 'postcodes' (unused-argument)
 postcode_functions.py:4:0: C0411: standard import "os" should be placed before third party import "requests" (wrong-import-order)
 postcode_functions.py:5:0: C0411: standard import "json" should be placed before third party import "requests" (wrong-import-order)
 postcode_functions.py:4:0: W0611: Unused import os (unused-import)
 postcode_functions.py:5:0: W0611: Unused import json (unused-import)
 
 ------------------------------------------------------------------
-Your code has been rated at 5.14/10 (previous run: 5.14/10, +0.00)
+Your code has been rated at 5.75/10 (previous run: 5.75/10, +0.00)
 
