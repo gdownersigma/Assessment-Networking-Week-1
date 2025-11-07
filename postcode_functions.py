@@ -1,8 +1,8 @@
 """Functions that interact with the Postcode API."""
+# pylint: disable=unnecessary-ellipsis, unused-argument, inconsistent-return-statements
 
 import requests as req
-import os
-import json
+
 
 CACHE_FILE = "./postcode_cache.json"
 
@@ -43,10 +43,10 @@ def get_postcode_for_location(lat: float, long: float) -> str:
 
     if response.status_code == 200:
         data = response.json()
-        if data['result'] == None:
+        if data['result'] is None:
             raise ValueError("No relevant postcode found.")
-        else:
-            return data['result'][0]['postcode']
+
+        return data['result'][0]['postcode']
 
 
 def get_postcode_completions(postcode_start: str) -> list[str]:
@@ -54,7 +54,7 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
     if not isinstance(postcode_start, str):
         raise TypeError("Function expects a string.")
     response = req.get(
-        f'https://api.postcodes.io/postcodes/{postcode_start}/autocomplete')
+        f'https://api.postcodes.io/postcodes/{postcode_start}/autocomplete', timeout=120)
 
     if response.status_code == 500:
         raise req.exceptions.RequestException("Unable to access API.")
@@ -64,9 +64,11 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
 
 
 def get_postcodes_details(postcodes: list[str]) -> dict:
+    """Returns the API response as a dict for multiple postcode details."""
     if not isinstance(postcodes, list) or not all(isinstance(pc, str) for pc in postcodes):
         raise TypeError("Function expects a list of strings.")
-    response = req.post("https://api.postcodes.io/postcodes", json=postcodes)
+    response = req.post("https://api.postcodes.io/postcodes",
+                        json=postcodes, timeout=120)
     if response.status_code == 500:
         raise req.exceptions.RequestException("Unable to access API.")
     if response.status_code == 200:
