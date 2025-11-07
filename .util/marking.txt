@@ -8,10 +8,8 @@ test_postcode_cache.py FFFFFFFFFFFFF                                     [ 14%]
 test_postcode_cli.py ................................                    [ 50%]
 test_postcode_functions.py ............................................. [100%]
 
-======================== 13 failed, 77 passed in 6.02s =========================
-************* Module postcode_cli
-postcode_cli.py:21:21: R1721: Unnecessary use of a comprehension, use list(completions[:5]) instead. (unnecessary-comprehension)
+======================== 13 failed, 77 passed in 6.78s =========================
 
-------------------------------------------------------------------
-Your code has been rated at 9.84/10 (previous run: 9.84/10, +0.00)
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
 
