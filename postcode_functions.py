@@ -1,5 +1,5 @@
 """Functions that interact with the Postcode API."""
-# pylint: disable=unnecessary-ellipsis, unused-argument, inconsistent-return-statements
+# pylint: disable= inconsistent-return-statements
 import json
 import os
 import requests as req
@@ -68,6 +68,12 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
     """Returns a list of valid postcodes from the beginning of a postcode."""
     if not isinstance(postcode_start, str):
         raise TypeError("Function expects a string.")
+    postcode_start = postcode_start.strip().upper()
+
+    cache = load_cache()
+    if postcode_start in cache:
+        return cache[postcode_start]['completions']
+
     response = req.get(
         f'https://api.postcodes.io/postcodes/{postcode_start}/autocomplete', timeout=120)
 
@@ -75,7 +81,11 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
         raise req.exceptions.RequestException("Unable to access API.")
 
     if response.status_code == 200:
-        return response.json()['result']
+        data = response.json()['result']
+        cache[postcode_start] = {"valid": None,
+                                 "completions": data}
+        save_cache(cache)
+        return data
 
 
 def get_postcodes_details(postcodes: list[str]) -> dict:
