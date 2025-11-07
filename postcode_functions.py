@@ -1,6 +1,7 @@
 """Functions that interact with the Postcode API."""
 # pylint: disable=unnecessary-ellipsis, unused-argument, inconsistent-return-statements
 import json
+import os
 import requests as req
 
 
@@ -9,24 +10,38 @@ CACHE_FILE = "./postcode_cache.json"
 
 def load_cache() -> dict:
     """Loads the cache from a file and converts it from JSON to a dictionary."""
+    if not os.path.exists(CACHE_FILE):
+        with open(CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump({}, f)
+
     with open(CACHE_FILE, encoding='utf-8') as cache:
         return json.load(cache)
 
 
 def save_cache(cache: dict):
     """Saves the cache to a file as JSON"""
-    with open(CACHE_FILE, encoding='utf-8') as f:
-        f.dump(cache)
+    with open(CACHE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(cache, f, indent=4)
 
 
 def validate_postcode(postcode: str) -> bool:
     """Returns whether a postcode is valid or not. (True/False)."""
     if not isinstance(postcode, str):
         raise TypeError("Function expects a string.")
+
+    cache = load_cache()
+    if postcode in cache:
+        if cache[postcode]['valid'] is not None:
+            return cache[postcode]['valid']
+
     response = req.get(
         f"https://api.postcodes.io/postcodes/{postcode}/validate", timeout=120)
     if response.status_code == 200:
-        return response.json()['result']
+        data = response.json()['result']
+        cache[postcode] = {'valid': data,
+                           'completion': [postcode]}
+        save_cache(cache)
+        return data
     if response.status_code == 500:
         raise req.RequestException("Unable to access API.")
 
